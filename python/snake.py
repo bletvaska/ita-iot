@@ -23,7 +23,7 @@ def snake(screen):
     for _ in range(20):
         #! FIXME osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
         food = (random.randint(1, rows - 2),
-            random.randint(1, cols - 2)
+            random.randint(1, cols - 2))
         foods.append(food)
 
     # pozicia a smer hadika na zaciatku
