@@ -14,7 +14,6 @@ def snake(screen):
 
     key = None
     rows, cols = screen.getmaxyx()
-    score = 0
     snake = [
         (8, 10),  # head
         (9, 10),
@@ -61,7 +60,6 @@ def snake(screen):
         if (y, x) in foods:
             eating = True
             foods.remove((y,x))
-            score = score + 1
             food = (random.randint(1, rows - 2),
                     random.randint(1, cols - 2))
             foods.append(food)
@@ -82,7 +80,7 @@ def snake(screen):
 
         # render
         screen.clear()
-        screen.addstr(0, 0, f'Score: {score}')
+        screen.addstr(0, 0, f'Dĺžka: {len(snake)}')
 
         # render food
         for food in foods:
