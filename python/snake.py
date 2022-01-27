@@ -1,5 +1,6 @@
 import curses
 import time
+import random
 
 KEY_ESC = 27
 
@@ -18,6 +19,12 @@ def snake(screen):
         (9, 10),
         (10, 10),
     ]
+    foods = []
+    for _ in range(20):
+        #! FIXME osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
+        food = (random.randint(1, rows - 2),
+            random.randint(1, cols - 2)
+        foods.append(food)
 
     # pozicia a smer hadika na zaciatku
     y = snake[0][0]
@@ -50,7 +57,7 @@ def snake(screen):
 
         # trafil hadik o stenu?
         if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
-            screen.addstr(rows//2, cols//2, 'Hlavou mur neprerazis.')
+            screen.addstr(rows//2, cols//2, 'Hlavou múr neprerazíš.')
             screen.refresh()
             time.sleep(2)
             break
