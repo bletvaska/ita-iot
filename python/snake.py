@@ -57,12 +57,14 @@ def snake(screen):
         x = x + dx
 
         # trafil som kapustu?
+        eating = False
         if (y, x) in foods:
+            eating = True
             foods.remove((y,x))
             score = score + 1
-
-
-
+            food = (random.randint(1, rows - 2),
+                    random.randint(1, cols - 2))
+            foods.append(food)
 
         # trafil hadik o stenu?
         if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
@@ -75,7 +77,8 @@ def snake(screen):
         # head
         snake.insert(0, (y, x))
         # tail
-        snake.pop()
+        if not eating:
+            snake.pop()
 
         # render
         screen.clear()
