@@ -12,6 +12,7 @@ def snake(screen):
     curses.curs_set(0)
 
     key = None
+    rows, cols = screen.getmaxyx()
 
     # pozicia a smer hadika na zaciatku
     y = 10
@@ -41,6 +42,14 @@ def snake(screen):
         # aktualizujem polohu hadika
         y = y + dy
         x = x + dx
+
+        # trafil hadik o stenu?
+        if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
+            screen.addstr(rows//2, cols//2, 'Hlavou mur neprerazis.')
+            screen.refresh()
+            time.sleep(2)
+            break
+
 
         # render
         screen.clear()
