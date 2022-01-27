@@ -13,6 +13,11 @@ def snake(screen):
 
     key = None
     rows, cols = screen.getmaxyx()
+    snake = [
+        (8, 10),  # head
+        (9, 10),
+        (10, 10),
+    ]
 
     # pozicia a smer hadika na zaciatku
     y = 10
@@ -50,12 +55,14 @@ def snake(screen):
             time.sleep(2)
             break
 
-
         # render
         screen.clear()
         screen.addstr(0, 0, f'Snake Game {key}')
 
-        screen.addstr(y, x, 'o')
+        # render hadik
+        for part in snake:
+            screen.addstr(part[0], part[1], 'o')
+
         screen.refresh()
         time.sleep(0.5)
 
