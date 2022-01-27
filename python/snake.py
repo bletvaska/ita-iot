@@ -72,6 +72,10 @@ def snake(screen):
         screen.clear()
         screen.addstr(0, 0, f'Snake Game {key}')
 
+        # render food
+        for food in foods:
+            screen.addstr(food[0], food[1], '*')
+
         # render hadik
         for part in snake:
             screen.addstr(part[0], part[1], 'o')
