@@ -71,6 +71,14 @@ def snake(screen):
             time.sleep(2)
             break
 
+        # zozral hadik sam seba?
+        if (y, x) in snake[1:]:
+            screen.addstr(rows//2, cols//2, 'Sám seba nežerem.')
+            screen.refresh()
+            time.sleep(2)
+            break
+
+
         # update hadik
         # head
         snake.insert(0, (y, x))
