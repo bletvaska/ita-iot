@@ -55,6 +55,9 @@ def snake(screen):
         y = y + dy
         x = x + dx
 
+        # trafil som kapustu?
+
+
         # trafil hadik o stenu?
         if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
             screen.addstr(rows//2, cols//2, 'Hlavou múr neprerazíš.')
