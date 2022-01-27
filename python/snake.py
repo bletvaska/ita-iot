@@ -2,6 +2,14 @@ import curses
 import time
 import random
 
+# domaca
+#
+# 1. nakreslite ramik okolo obrazovky
+# 2. hlavicku nakreslite ako znak 'v' a zvysok tela bude pekne 'o'
+# 3. refaktorujte, co mozete a viete
+#    * uz teraz mame opakujuce sa casti kodu -> funkcia
+# 4. osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
+
 KEY_ESC = 27
 
 def snake(screen):
@@ -21,7 +29,6 @@ def snake(screen):
     ]
     foods = []
     for _ in range(20):
-        #! FIXME osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
         food = (random.randint(1, rows - 2),
             random.randint(1, cols - 2))
         foods.append(food)
