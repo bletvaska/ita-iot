@@ -9,6 +9,9 @@ import random
 # 3. refaktorujte, co mozete a viete
 #    * uz teraz mame opakujuce sa casti kodu -> funkcia
 # 4. osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
+# 5. rozsypte po hernom plane otravu
+#    * ked wurmi zozerie otravu, zomrie
+#    * otrava sa negeneruje cez kapustu a ani cez hadika ani pred hadikom
 
 KEY_ESC = 27
 
