@@ -14,6 +14,7 @@ def snake(screen):
 
     key = None
     rows, cols = screen.getmaxyx()
+    score = 0
     snake = [
         (8, 10),  # head
         (9, 10),
@@ -56,6 +57,11 @@ def snake(screen):
         x = x + dx
 
         # trafil som kapustu?
+        if (y, x) in foods:
+            foods.remove((y,x))
+            score = score + 1
+
+
 
 
         # trafil hadik o stenu?
@@ -73,7 +79,7 @@ def snake(screen):
 
         # render
         screen.clear()
-        screen.addstr(0, 0, f'Snake Game {key}')
+        screen.addstr(0, 0, f'Score: {score}')
 
         # render food
         for food in foods:
