@@ -20,8 +20,8 @@ def snake(screen):
     ]
 
     # pozicia a smer hadika na zaciatku
-    y = 10
-    x = 10
+    y = snake[0][0]
+    x = snake[0][1]
     dx = 0
     dy = -1
 
@@ -54,6 +54,12 @@ def snake(screen):
             screen.refresh()
             time.sleep(2)
             break
+
+        # update hadik
+        # head
+        snake.insert(0, (y, x))
+        # tail
+        snake.pop()
 
         # render
         screen.clear()
