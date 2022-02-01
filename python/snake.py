@@ -6,19 +6,20 @@ import random
 #
 # * 1. nakreslite ramik okolo obrazovky
 # * 2. hlavicku nakreslite ako znak 'v' a zvysok tela bude pekne 'o'
-# 3. refaktorujte, co mozete a viete
+# * 3. refaktorujte, co mozete a viete
 #    * uz teraz mame opakujuce sa casti kodu -> funkcia
-# 4. osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
+# * 4. osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
 # 5. rozsypte po hernom plane otravu
 #    * ked wurmi zozerie otravu, zomrie
 #    * otrava sa negeneruje cez kapustu a ani cez hadika ani pred hadikom
 
 
-def print_center(screen, text:str):
+def print_center(screen, text: str):
     rows, cols = screen.getmaxyx()
     y = rows // 2
     x = cols // 2 - len(text) // 2
     screen.addstr(y, x, text)
+
 
 def generate_food(screen, snake):
     rows, cols = screen.getmaxyx()
@@ -28,7 +29,7 @@ def generate_food(screen, snake):
 
     while food in snake:
         food = (random.randint(1, rows - 2),
-            random.randint(1, cols - 2))
+                random.randint(1, cols - 2))
 
     return food
 
@@ -51,11 +52,24 @@ def snake(screen):
         (10, 10),
     ]
     head = snake[0]
-    foods = []
 
+    # generovanie jedla
+    foods = []
     for _ in range(30):
         food = generate_food(screen, snake)
         foods.append(food)
+
+    # generovanie otravy
+    poison = []
+    for _ in range(30):
+        item = (random.randint(1, rows - 2),
+                random.randint(1, cols - 2))
+
+        while item in snake or item in food :
+            item = (random.randint(1, rows - 2),
+                    random.randint(1, cols - 2))
+
+        poison.append(item)
 
     # pozicia a smer hadika na zaciatku
     y = head[0]
@@ -90,14 +104,13 @@ def snake(screen):
         eating = False
         if (y, x) in foods:
             eating = True
-            foods.remove((y,x))
+            foods.remove((y, x))
             food = generate_food(screen, snake)
             foods.append(food)
 
         # trafil hadik o stenu?
         if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
             print_center(screen, 'Hlavou múr neprerazíš.')
-            #screen.addstr(rows//2, cols//2, 'Hlavou múr neprerazíš.')
             screen.refresh()
             time.sleep(2)
             break
@@ -105,7 +118,6 @@ def snake(screen):
         # zozral hadik sam seba?
         if (y, x) in snake[1:]:
             print_center(screen, 'Sám seba nežerem.')
-            #screen.addstr(rows//2, cols//2, 'Sám seba nežerem.')
             screen.refresh()
             time.sleep(2)
             break
@@ -127,11 +139,14 @@ def snake(screen):
         for food in foods:
             screen.addstr(food[0], food[1], '*')
 
+        # render poison
+        for item in poison:
+            screen.addstr(item[0], item[1], 'x')
+
         # render hadik
         screen.addstr(snake[0][0], snake[0][1], 'v')
         for part in snake[1:]:
             screen.addstr(part[0], part[1], 'o')
-
 
         screen.refresh()
         time.sleep(0.5)
