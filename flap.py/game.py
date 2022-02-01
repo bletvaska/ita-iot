@@ -21,6 +21,11 @@ def update():
     if upper_pipe.right <= 0:
         upper_pipe.left = WIDTH
 
+    # collision detection
+    if flappy.colliderect(upper_pipe):
+        print('Ta hlavou trubku neporazis.')
+        quit()
+
 def draw():
     screen.blit('background', (0, 0))
     upper_pipe.draw()
