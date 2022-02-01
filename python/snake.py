@@ -13,6 +13,14 @@ import random
 #    * ked wurmi zozerie otravu, zomrie
 #    * otrava sa negeneruje cez kapustu a ani cez hadika ani pred hadikom
 
+
+def print_center(screen, text:str):
+    rows, cols = screen.getmaxyx()
+    y = rows // 2
+    x = cols // 2 - len(text) // 2
+    screen.addstr(y, x, text)
+
+
 KEY_ESC = 27
 
 def snake(screen):
@@ -22,6 +30,7 @@ def snake(screen):
     screen.nodelay(True)
     # skryt kurzor
     curses.curs_set(0)
+
 
     key = None
     rows, cols = screen.getmaxyx()
@@ -76,18 +85,19 @@ def snake(screen):
 
         # trafil hadik o stenu?
         if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
-            screen.addstr(rows//2, cols//2, 'Hlavou múr neprerazíš.')
+            print_center(screen, 'Hlavou múr neprerazíš.')
+            #screen.addstr(rows//2, cols//2, 'Hlavou múr neprerazíš.')
             screen.refresh()
             time.sleep(2)
             break
 
         # zozral hadik sam seba?
         if (y, x) in snake[1:]:
-            screen.addstr(rows//2, cols//2, 'Sám seba nežerem.')
+            print_center(screen, 'Sám seba nežerem.')
+            #screen.addstr(rows//2, cols//2, 'Sám seba nežerem.')
             screen.refresh()
             time.sleep(2)
             break
-
 
         # update hadik
         # head
@@ -98,7 +108,10 @@ def snake(screen):
 
         # render
         screen.clear()
-        screen.addstr(0, 0, f'Dĺžka: {len(snake)}')
+        # nakresli okraj/ramik
+        screen.border('|', '|', '-', '-', '+', '+', '+', '+')
+
+        screen.addstr(0, 3, f' Dĺžka: {len(snake)} ')
 
         # render food
         for food in foods:
