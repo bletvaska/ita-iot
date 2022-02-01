@@ -4,8 +4,8 @@ import random
 
 # domaca
 #
-# 1. nakreslite ramik okolo obrazovky
-# 2. hlavicku nakreslite ako znak 'v' a zvysok tela bude pekne 'o'
+# * 1. nakreslite ramik okolo obrazovky
+# * 2. hlavicku nakreslite ako znak 'v' a zvysok tela bude pekne 'o'
 # 3. refaktorujte, co mozete a viete
 #    * uz teraz mame opakujuce sa casti kodu -> funkcia
 # 4. osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
@@ -20,6 +20,18 @@ def print_center(screen, text:str):
     x = cols // 2 - len(text) // 2
     screen.addstr(y, x, text)
 
+def generate_food(screen, snake):
+    rows, cols = screen.getmaxyx()
+
+    food = (random.randint(1, rows - 2),
+            random.randint(1, cols - 2))
+
+    while food in snake:
+        food = (random.randint(1, rows - 2),
+            random.randint(1, cols - 2))
+
+    return food
+
 
 KEY_ESC = 27
 
@@ -31,7 +43,6 @@ def snake(screen):
     # skryt kurzor
     curses.curs_set(0)
 
-
     key = None
     rows, cols = screen.getmaxyx()
     snake = [
@@ -39,15 +50,16 @@ def snake(screen):
         (9, 10),
         (10, 10),
     ]
+    head = snake[0]
     foods = []
-    for _ in range(20):
-        food = (random.randint(1, rows - 2),
-            random.randint(1, cols - 2))
+
+    for _ in range(30):
+        food = generate_food(screen, snake)
         foods.append(food)
 
     # pozicia a smer hadika na zaciatku
-    y = snake[0][0]
-    x = snake[0][1]
+    y = head[0]
+    x = head[1]
     dx = 0
     dy = -1
 
@@ -79,8 +91,7 @@ def snake(screen):
         if (y, x) in foods:
             eating = True
             foods.remove((y,x))
-            food = (random.randint(1, rows - 2),
-                    random.randint(1, cols - 2))
+            food = generate_food(screen, snake)
             foods.append(food)
 
         # trafil hadik o stenu?
@@ -110,7 +121,6 @@ def snake(screen):
         screen.clear()
         # nakresli okraj/ramik
         screen.border('|', '|', '-', '-', '+', '+', '+', '+')
-
         screen.addstr(0, 3, f' Dĺžka: {len(snake)} ')
 
         # render food
@@ -118,8 +128,10 @@ def snake(screen):
             screen.addstr(food[0], food[1], '*')
 
         # render hadik
-        for part in snake:
+        screen.addstr(snake[0][0], snake[0][1], 'v')
+        for part in snake[1:]:
             screen.addstr(part[0], part[1], 'o')
+
 
         screen.refresh()
         time.sleep(0.5)
