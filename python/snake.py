@@ -2,17 +2,6 @@ import curses
 import time
 import random
 
-# domaca
-#
-# * 1. nakreslite ramik okolo obrazovky
-# * 2. hlavicku nakreslite ako znak 'v' a zvysok tela bude pekne 'o'
-# * 3. refaktorujte, co mozete a viete
-#    * uz teraz mame opakujuce sa casti kodu -> funkcia
-# * 4. osetrite, aby sa to jedlo nevygenerovalo tam, kde je hadik
-# 5. rozsypte po hernom plane otravu
-#    * ked wurmi zozerie otravu, zomrie
-#    * otrava sa negeneruje cez kapustu a ani cez hadika ani pred hadikom
-
 
 def print_center(screen, text: str):
     rows, cols = screen.getmaxyx()
@@ -65,7 +54,7 @@ def snake(screen):
         item = (random.randint(1, rows - 2),
                 random.randint(1, cols - 2))
 
-        while item in snake or item in food :
+        while item in snake or item in food:
             item = (random.randint(1, rows - 2),
                     random.randint(1, cols - 2))
 
@@ -76,6 +65,7 @@ def snake(screen):
     x = head[1]
     dx = 0
     dy = -1
+    speed = 0.5
 
     while key != KEY_ESC:
         # update
@@ -107,6 +97,7 @@ def snake(screen):
             foods.remove((y, x))
             food = generate_food(screen, snake)
             foods.append(food)
+            speed = speed - 0.01
 
         # trafil som otravu?
         if (y, x) in poison:
@@ -140,7 +131,7 @@ def snake(screen):
         screen.clear()
         # nakresli okraj/ramik
         screen.border('|', '|', '-', '-', '+', '+', '+', '+')
-        screen.addstr(0, 3, f' Dĺžka: {len(snake)} ')
+        screen.addstr(0, 3, f' Dĺžka: {len(snake)}  Rýchlosť: {speed}')
 
         # render food
         for food in foods:
@@ -156,6 +147,6 @@ def snake(screen):
             screen.addstr(part[0], part[1], 'o')
 
         screen.refresh()
-        time.sleep(0.5)
+        time.sleep(speed)
 
 curses.wrapper(snake)
