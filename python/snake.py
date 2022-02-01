@@ -108,6 +108,13 @@ def snake(screen):
             food = generate_food(screen, snake)
             foods.append(food)
 
+        # trafil som otravu?
+        if (y, x) in poison:
+            print_center(screen, 'Bleah. Ta toto nebola kapusta :-(')
+            screen.refresh()
+            time.sleep(2)
+            break
+
         # trafil hadik o stenu?
         if y == 0 or y == rows - 1 or x == 0 or x == cols - 1:
             print_center(screen, 'Hlavou múr neprerazíš.')
