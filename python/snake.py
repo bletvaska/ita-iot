@@ -131,7 +131,7 @@ def snake(screen):
         screen.clear()
         # nakresli okraj/ramik
         screen.border('|', '|', '-', '-', '+', '+', '+', '+')
-        screen.addstr(0, 3, f' Dĺžka: {len(snake)}  Rýchlosť: {speed:.2}')
+        screen.addstr(0, 3, f' Dĺžka: {len(snake)}  Rýchlosť: {speed:.2} ')
 
         # render food
         for food in foods:
