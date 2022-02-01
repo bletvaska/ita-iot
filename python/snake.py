@@ -135,16 +135,16 @@ def snake(screen):
 
         # render food
         for food in foods:
-            screen.addstr(food[0], food[1], '*')
+            screen.addstr(food[0], food[1], '♠')
 
         # render poison
         for item in poison:
-            screen.addstr(item[0], item[1], 'x')
+            screen.addstr(item[0], item[1], '☠')
 
         # render hadik
-        screen.addstr(snake[0][0], snake[0][1], 'v')
+        screen.addstr(snake[0][0], snake[0][1], '⚉')
         for part in snake[1:]:
-            screen.addstr(part[0], part[1], 'o')
+            screen.addstr(part[0], part[1], '⬤')
 
         screen.refresh()
         time.sleep(speed)
