@@ -1,0 +1,101 @@
+[
+    {
+        "id": "793a0d76.51b7e4",
+        "type": "tab",
+        "label": "Meteo Servis",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "2f3cd98a.3e43f6",
+        "type": "worldmap",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "lat": "48.730892",
+        "lon": "21.245767",
+        "zoom": "15",
+        "layer": "OSM",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "x": 660,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "df0b0ef2.5d391",
+        "type": "inject",
+        "z": "793a0d76.51b7e4",
+        "name": "marker",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "9138dc47.9df47"
+            ]
+        ]
+    },
+    {
+        "id": "9138dc47.9df47",
+        "type": "openweathermap",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "kosice",
+        "country": "slovensko",
+        "language": "en",
+        "x": 310,
+        "y": 160,
+        "wires": [
+            [
+                "321b55f1.3c26da"
+            ]
+        ]
+    },
+    {
+        "id": "321b55f1.3c26da",
+        "type": "template",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"name\": \"mirek\",\n    \"lat\": 48.730892,\n    \"lon\": 21.245767,\n    \"iconColor\": \"#0000ff\",\n    \"icon\": \"home\",\n    \"ttl\": 30,\n    \"photoUrl\": \"https://bletvaska.github.io/images/mirek.na.hackathone.jpg\",\n    \"weblink\": {\n        \"name\": \"homepage\",\n        \"url\": \"https://bletvaska.github.io/\",\n        \"target\": \"_new\"\n    },\n    \"label\": \"mirek\",\n    \"temp\": \"{{ payload.tempc }}°C\",\n    \"hum\": \"{{ payload.humidity }}%\"\n}\n",
+        "output": "json",
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "2f3cd98a.3e43f6"
+            ]
+        ]
+    }
+]

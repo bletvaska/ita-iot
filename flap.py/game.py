@@ -1,6 +1,6 @@
 WIDTH = 288
 HEIGHT = 512
-TITLE = 'Namakaná bavka'
+TITLE = 'Flap.py'
 GRAVITY = 0.3
 
 flappy = Actor('flappy')
