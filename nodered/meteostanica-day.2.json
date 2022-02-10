@@ -1,0 +1,190 @@
+[
+    {
+        "id": "793a0d76.51b7e4",
+        "type": "tab",
+        "label": "Meteo Servis",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "2f3cd98a.3e43f6",
+        "type": "worldmap",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "lat": "48.730892",
+        "lon": "21.245767",
+        "zoom": "15",
+        "layer": "OSM",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "x": 440,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "3fe0a537.c485fa",
+        "type": "mqtt in",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "topic": "ita/meteoservis/#",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "6cfce82e.1e0f68",
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "2f3cd98a.3e43f6"
+            ]
+        ]
+    },
+    {
+        "id": "df0b0ef2.5d391",
+        "type": "inject",
+        "z": "793a0d76.51b7e4",
+        "name": "marker",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 360,
+        "wires": [
+            [
+                "9138dc47.9df47"
+            ]
+        ]
+    },
+    {
+        "id": "9138dc47.9df47",
+        "type": "openweathermap",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "kosice",
+        "country": "slovensko",
+        "language": "en",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "321b55f1.3c26da"
+            ]
+        ]
+    },
+    {
+        "id": "321b55f1.3c26da",
+        "type": "template",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"name\": \"mirek\",\n    \"lat\": 48.730892,\n    \"lon\": 21.245767,\n    \"iconColor\": \"#0000ff\",\n    \"icon\": \"home\",\n    \"ttl\": 30,\n    \"photoUrl\": \"https://bletvaska.github.io/images/mirek.na.hackathone.jpg\",\n    \"weblink\": {\n        \"name\": \"homepage\",\n        \"url\": \"https://bletvaska.github.io/\",\n        \"target\": \"_new\"\n    },\n    \"label\": \"mirek is here\",\n    \"temp\": \"{{ payload.tempc }}°C\",\n    \"hum\": \"{{ payload.humidity }}%\"\n}\n",
+        "output": "json",
+        "x": 600,
+        "y": 360,
+        "wires": [
+            [
+                "a580bbfd.39fa18",
+                "94c6809.8147d8"
+            ]
+        ]
+    },
+    {
+        "id": "a580bbfd.39fa18",
+        "type": "mqtt out",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "topic": "ita/meteoservis/mirek",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5f188ed4.5dd19",
+        "x": 800,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "94c6809.8147d8",
+        "type": "debug",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6cfce82e.1e0f68",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "5f188ed4.5dd19",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
