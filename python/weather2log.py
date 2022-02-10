@@ -16,7 +16,7 @@ while True:
 
     # log
     now = datetime.now()
-    print(f'{now.day}.{now.month}.{now.year} {now.hour}:{now.minute}:{now.second};{temp:.2f};{hum:.2f};{press:.0f}')
+    log = f'{now.strftime("%d.%m.%Y %H:%M:%S")};{temp:.2f};{hum:.2f};{press:.0f}'
 
     sleep(1)
 
