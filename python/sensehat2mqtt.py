@@ -3,14 +3,13 @@ import json
 from sense_emu import SenseHat
 import paho.mqtt.client as mqtt
 
-# download data
-response = requests.get(url.format(appid=appid, city=city))
+# create sensehat object
+sense = SenseHat()
 
-# extract data
-data = response.json()
-temp = data['main']['temp']
-hum = data['main']['humidity']
-press = data['main']['pressure']
+# get data from sense hat
+temp = sense.get_temperature()
+hum = sense.get_humidity()
+press = sense.get_pressure()
 
 client = mqtt.Client()
 client.connect('broker.hivemq.com', port=1883)
