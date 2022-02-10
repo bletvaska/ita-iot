@@ -28,9 +28,9 @@ data = {
         "target": "_new"
     },
     "label": "mirek from Mu",
-    "temperature": f"{temp}°C",
-    "humidity": f"{hum}%",
-    "pressure": f"{press}hPa"
+    "temperature": f"{temp:.2f}°C",
+    "humidity": f"{hum:.2f}%",
+    "pressure": f"{press:.0f}hPa"
 }
 
 client.publish('ita/meteoservis/mirek', json.dumps(data, ensure_ascii=False))
