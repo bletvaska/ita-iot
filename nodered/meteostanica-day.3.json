@@ -1,0 +1,332 @@
+[
+    {
+        "id": "793a0d76.51b7e4",
+        "type": "tab",
+        "label": "Meteo Servis",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "2f3cd98a.3e43f6",
+        "type": "worldmap",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "lat": "48.730892",
+        "lon": "21.245767",
+        "zoom": "15",
+        "layer": "OSM",
+        "cluster": "",
+        "maxage": "",
+        "usermenu": "show",
+        "layers": "show",
+        "panit": "false",
+        "panlock": "false",
+        "zoomlock": "false",
+        "hiderightclick": "false",
+        "coords": "none",
+        "showgrid": "false",
+        "allowFileDrop": "false",
+        "path": "/worldmap",
+        "x": 460,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "3fe0a537.c485fa",
+        "type": "mqtt in",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "topic": "ita/meteoservis/#",
+        "qos": "2",
+        "datatype": "json",
+        "broker": "6cfce82e.1e0f68",
+        "x": 250,
+        "y": 180,
+        "wires": [
+            [
+                "2f3cd98a.3e43f6",
+                "8c05d61f.079658",
+                "37ed8d02.d96462"
+            ]
+        ]
+    },
+    {
+        "id": "df0b0ef2.5d391",
+        "type": "inject",
+        "z": "793a0d76.51b7e4",
+        "name": "marker",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 360,
+        "wires": [
+            [
+                "9138dc47.9df47"
+            ]
+        ]
+    },
+    {
+        "id": "9138dc47.9df47",
+        "type": "openweathermap",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "kosice",
+        "country": "slovensko",
+        "language": "en",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "321b55f1.3c26da"
+            ]
+        ]
+    },
+    {
+        "id": "321b55f1.3c26da",
+        "type": "template",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"name\": \"mirek\",\n    \"lat\": 48.730892,\n    \"lon\": 21.245767,\n    \"iconColor\": \"#0000ff\",\n    \"icon\": \"home\",\n    \"ttl\": 30,\n    \"photoUrl\": \"https://bletvaska.github.io/images/mirek.na.hackathone.jpg\",\n    \"weblink\": {\n        \"name\": \"homepage\",\n        \"url\": \"https://bletvaska.github.io/\",\n        \"target\": \"_new\"\n    },\n    \"label\": \"mirek is here\",\n    \"temp\": \"{{ payload.tempc }}°C\",\n    \"hum\": \"{{ payload.humidity }}%\"\n}\n",
+        "output": "json",
+        "x": 600,
+        "y": 360,
+        "wires": [
+            [
+                "a580bbfd.39fa18",
+                "94c6809.8147d8"
+            ]
+        ]
+    },
+    {
+        "id": "a580bbfd.39fa18",
+        "type": "mqtt out",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "topic": "ita/meteoservis/mirek",
+        "qos": "2",
+        "retain": "true",
+        "broker": "5f188ed4.5dd19",
+        "x": 800,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "94c6809.8147d8",
+        "type": "debug",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "8c05d61f.079658",
+        "type": "debug",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "919aa230.a8453",
+        "type": "ui_text",
+        "z": "793a0d76.51b7e4",
+        "group": "2c5670b4.61e1e",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "text",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 630,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "df08b8e2.6b9bf8",
+        "type": "ui_gauge",
+        "z": "793a0d76.51b7e4",
+        "name": "temp",
+        "group": "2c5670b4.61e1e",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Teplota",
+        "label": "°C",
+        "format": "{{ value }}",
+        "min": "-20",
+        "max": "45",
+        "colors": [
+            "#14e4ff",
+            "#24ff14",
+            "#ca3838"
+        ],
+        "seg1": "15",
+        "seg2": "32",
+        "x": 630,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "37ed8d02.d96462",
+        "type": "template",
+        "z": "793a0d76.51b7e4",
+        "name": "temperature",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{ payload.temperature }}",
+        "output": "str",
+        "x": 470,
+        "y": 60,
+        "wires": [
+            [
+                "df08b8e2.6b9bf8",
+                "919aa230.a8453",
+                "52747fd1.5cb6"
+            ]
+        ]
+    },
+    {
+        "id": "52747fd1.5cb6",
+        "type": "ui_chart",
+        "z": "793a0d76.51b7e4",
+        "name": "",
+        "group": "2c5670b4.61e1e",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "x": 630,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6cfce82e.1e0f68",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "5f188ed4.5dd19",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "2c5670b4.61e1e",
+        "type": "ui_group",
+        "name": "ITA IoT",
+        "tab": "649aa203.1cc67c",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "649aa203.1cc67c",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
