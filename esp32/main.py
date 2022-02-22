@@ -1,6 +1,10 @@
 from time import sleep
-from machine import Pin
+from machine import Pin, unique_id
 from dht import DHT22
+from umqtt.robust import MQTTClient
+
+import config
+
 
 def do_connect(ssid, password):
     import network
@@ -16,17 +20,26 @@ def do_connect(ssid, password):
 def toggle(led):
   led.value(not led.value())
 
-do_connect('Wokwi-GUEST', '')
+# connect to wifi
+do_connect(config.ESSID, config.PASSWORD)
 
+# connect to MQTT
+mqtt = MQTTClient(unique_id(), config.MQTT_BROKER)
+mqtt.connect()
+
+# sensors/actuators initialization
 led = Pin(18, Pin.OUT)
 sensor = DHT22(Pin(14))
 
-# while True:
-#   led.on()
-#   sensor.measure()
-#   temp = sensor.temperature()
-#   hum = sensor.humidity()
-#   print(f'{temp:.2}C {hum:.2}%')
-#   led.off()
-#   sleep(10)
-
+# main loop
+while True:
+  led.on()
+  sensor.measure()
+  temp = sensor.temperature()
+  hum = sensor.humidity()
+  message = f'{temp:.2}C {hum:.2}%'
+  print(message)
+  mqtt.publish(MQTT_TOPIC, message)
+  led.off()
+  sleep(10)
+  break
