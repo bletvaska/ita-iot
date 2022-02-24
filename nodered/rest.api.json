@@ -1,0 +1,168 @@
+[
+    {
+        "id": "de195574.0981e8",
+        "type": "tab",
+        "label": "REST API",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "aa8197c5.c3c468",
+        "type": "http in",
+        "z": "de195574.0981e8",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 470,
+        "y": 240,
+        "wires": [
+            [
+                "c98cddce.a326b"
+            ]
+        ]
+    },
+    {
+        "id": "13fe3cae.4120b3",
+        "type": "http response",
+        "z": "de195574.0981e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 830,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c98cddce.a326b",
+        "type": "template",
+        "z": "de195574.0981e8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<h1>Hello world!</h1>\n\n<p>\n    Vytajte na mojej slovianskej webovej stranke narodniej.\n</p>",
+        "output": "str",
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "13fe3cae.4120b3"
+            ]
+        ]
+    },
+    {
+        "id": "e3b85bfc.255c08",
+        "type": "http in",
+        "z": "de195574.0981e8",
+        "name": "",
+        "url": "/hello/:name/:surname",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "18271fad.44426",
+                "612a1b8f.94f584"
+            ]
+        ]
+    },
+    {
+        "id": "897ade29.52dc2",
+        "type": "http response",
+        "z": "de195574.0981e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 850,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "18271fad.44426",
+        "type": "template",
+        "z": "de195574.0981e8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<h1>Hello {{ req.params.name }}!</h1>",
+        "output": "str",
+        "x": 700,
+        "y": 340,
+        "wires": [
+            [
+                "897ade29.52dc2"
+            ]
+        ]
+    },
+    {
+        "id": "612a1b8f.94f584",
+        "type": "debug",
+        "z": "de195574.0981e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e7b625a9.49ddf8",
+        "type": "http in",
+        "z": "de195574.0981e8",
+        "name": "",
+        "url": "/temperature",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "d7b02c7a.6fe72"
+            ]
+        ]
+    },
+    {
+        "id": "92578276.dcd7d",
+        "type": "http response",
+        "z": "de195574.0981e8",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "d7b02c7a.6fe72",
+        "type": "template",
+        "z": "de195574.0981e8",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "json",
+        "syntax": "mustache",
+        "template": "{\n    \"temperature\": 23.4\n}",
+        "output": "json",
+        "x": 620,
+        "y": 500,
+        "wires": [
+            [
+                "92578276.dcd7d"
+            ]
+        ]
+    }
+]
