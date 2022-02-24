@@ -1,7 +1,7 @@
-import requests
+import urequests as requests
 # pip3 install requests
 
-key = 'VAS_KLUC_PRE_IFTTT'
+key = 'VAS_KLUC'
 url = 'https://maker.ifttt.com/trigger/pocasie/with/key/{key}'
 
 data = {
@@ -12,10 +12,11 @@ data = {
 headers = {
     'Content-Type': 'application/json'
 }
-
+    
 response = requests.post(
-    url.format(key=key),
-    headers=headers,
+    url.format(key=key), 
+    headers=headers, 
     json=data
 )
-print(response)
+
+print(response.status_code)
